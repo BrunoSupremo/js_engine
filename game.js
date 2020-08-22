@@ -35,11 +35,11 @@ ctx.imageSmoothingEnabled = false;
 var keysDown = {};
 window.addEventListener("keydown", function (event) {
 	keysDown[event.key] = true;
-	event.preventDefault();
+	// event.preventDefault();
 }, true);
 window.addEventListener("keyup", function (event) {
 	keysDown[event.key] = false;
-	event.preventDefault();
+	// event.preventDefault();
 }, true);
 
 var AnimationFrame;

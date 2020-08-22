@@ -4,6 +4,17 @@ class Array2D{
 		this.height = height;
 	}
 
+	print(){
+		let printing = "";
+		for (let y=0; y < this.height; y++) {
+			for (let x=0; x < this.width; x++) {
+				printing += " " +this.get(x,y);
+			}
+			console.log(printing);
+			printing = "";
+		}
+	}
+
 	get(x,y){
 		return this[this.get_offset(x,y)];
 	}
@@ -33,17 +44,17 @@ class Array2D{
 
 	bound(x,y){
 		if(x<0){
-			x==0;
+			x=0;
 		}else{
 			if(x>=this.width){
-				x == this.width-1;
+				x = this.width-1;
 			}
 		}
 		if(y<0){
-			y==0;
+			y=0;
 		}else{
 			if(y>=this.height){
-				y == this.height-1;
+				y = this.height-1;
 			}
 		}
 		return {x,y}
@@ -91,12 +102,29 @@ class Array2D{
 		return false;
 	}
 
+	get_random(){
+		return this[Math.floor(Math.random()*this.width*this.height)]
+	}
+
+	get_random_within(x,y,range){
+		x = (x -range) + Math.floor(Math.random()*range*2 +1);
+		y = (y -range) + Math.floor(Math.random()*range*2 +1);
+
+		console.log("x: "+x+" y:"+y);
+		if(!this.in_bounds(x,y)){
+			return null;
+		}
+		return this.get(x,y);
+	}
+
 	clone(){
 		let dst = new Array2D(this.width, this.height);
 		let size = this.width * this.height;
 
 		for (var i = 0; i < size; i++) {
-			dst[i] = this[i];
+			if(this[i]){
+				dst[i] = this[i];
+			}
 		}
 		return dst;
 	}
@@ -127,6 +155,13 @@ class Array2D{
 				this[index] = value;
 			}
 			offset = offset + this.width;
+		}
+	}
+
+	each(fn){
+		let size = this.width * this.height;
+		for (var i = 0; i < size; i++) {
+			fn(this[i]);
 		}
 	}
 
